@@ -3,7 +3,7 @@
 <mapper namespace="com.athena.px.mapper.GgMapper">
   <resultMap id="BaseResultMap" type="com.athena.px.model.Gg">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="name" jdbcType="VARCHAR" property="name" typeHandler="com.athena.px.typehandler.StringTypeHandler"/>
     <result column="sex" jdbcType="VARCHAR" property="sex" />
   </resultMap>
   <sql id="Base_Column_List">

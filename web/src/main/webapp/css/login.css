@@ -1,0 +1,146 @@
+@charset "utf-8";
+/* CSS Document */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+pre {
+    white-space: normal;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+fieldset, img {
+    border: 0;
+}
+li {
+    list-style: none;
+}
+caption, th {
+    text-align: left;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: 400;
+}
+q:before, q:after {
+    content: '';
+}
+abbr, acronym {
+    border: 0;
+    font-variant: normal;
+}
+html{
+    width: 100%;
+    height:100%;
+}
+sup {
+    vertical-align: text-top;
+}
+sub {
+    vertical-align: text-bottom;
+}
+input, textarea, select {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 100%;
+    line-height: 1.2;
+    margin: 0;
+}
+legend {
+    color: #000;
+}
+a img, img {
+    -ms-interpolation-mode: bicubic;
+}
+@charset "utf-8";
+/*--------基础类-----------*/
+h1,h2,h3,h4,h5,h6 {font-size: 100%;font-weight: normal}
+input{border: 0px;outline: 0px;}
+ul,ol,li{list-style-type:none}
+a {text-decoration:none; outline:none;/*FF标准去虚线框*/}
+a {star:expression(this.onFocus=this.blur()); /* for Ie*去虚线框*/ }
+.fontRed{color: #ef7d69;}
+.fontBlue{color: #2896C9;}
+.fontGreen{color: #02C26D}
+.fontBlack{color: #343434}
+.font_14{font-size: 14px}
+.font_16{font-size: 16px;}
+.floatR{float: right;}
+.floatL{float: left;}
+.positionR{position: relative;}
+.hide {display: none;}
+.a_none {text-decoration: none;color: #444444; }
+
+body {
+    height: 100%;
+    width: 100%;
+    min-width: 1200px;
+    margin: 0;
+    padding: 0;
+
+    font-family: '微软雅黑 Bold', '微软雅黑';
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+}
+/* CSS Document end*/
+#login_bg{
+    height:100%;
+    width:100%;
+    background: url("/img/pin_05.jpg");
+}
+#footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 777;
+    height: 0.35rem;
+    line-height: 0.35rem;
+    opacity: 0.9;
+    width: 100%;
+    background: rgb(11, 53, 117);
+}
+#login_id{
+    width: 350px;
+    height: 250px;
+    position: absolute;
+    right: 80px;
+    bottom: 100px;
+}
+.title_text{
+    width: 100%;
+    height: 30px;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+    color: #F7F6F7;
+    margin-bottom: 15px;
+}
+.in_item{
+    width: 100%;
+    height: 50px;
+}
+.in_item_input{
+    height: 30px;
+    width: 200px;
+    margin-left: 10px;
+    border-radius: 3px;
+}
+.in_label{
+    color: #FFFF31;
+}
+.sub_cli{
+    text-align: center;
+    width: 100px;
+    height: 30px;
+    margin-left: 130px;
+    border-radius: 3px;
+    background: #144671;
+    color: #F7F6F7;
+    cursor: pointer;
+}
+.sub_cli:hover{
+    background: #144682;
+}

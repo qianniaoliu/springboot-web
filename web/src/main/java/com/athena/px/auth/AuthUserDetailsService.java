@@ -23,7 +23,7 @@ public class AuthUserDetailsService implements UserDetailsService {
         SysUser sysUser = new SysUser();
         sysUser.setId(1L);
         sysUser.setUsername(s);
-        sysUser.setPassowrd("123456");
+        sysUser.setPassowrd("1");
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ADMIN");
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(grantedAuthority);

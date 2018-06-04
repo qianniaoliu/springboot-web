@@ -19,6 +19,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/css/**","/js/**","/img/**")
+                .addResourceLocations("classpath:/css/","classpath:/js/","classpath:/img/");
+    }
+
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration registration = registry.addInterceptor(new DefaultHandlerInterceptor());
         registration.addPathPatterns("/");

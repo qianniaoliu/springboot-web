@@ -2,16 +2,44 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>登录页</title>
+    <script type="text/javascript" src="/js/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="/css/login.css"/>
 </head>
 <body>
-    <h1>登录页面</h1>
-<form action="/login" method="post" th:action="@{/login}">
-    <label for="username">username</label>
-    <input id="username" name="username" type="text"/>
-    <label for="password">password</label>
-    <input type="password" id="password" name="password"/>
-    <input type="submit" id="login" value="login"/>
-</form>
+<div id="login_bg">
+    <div id="login_id">
+        <div class="title_text">{{title}}</div>
+        <div id="form_id">
+            <form action="/login" method="post" th:action="@{/login}">
+                <div class="in_item">
+                    <label class="in_label" for="username">username</label>
+                    <input class="in_item_input" id="username" name="username" type="text"/>
+                </div>
+                <div class="in_item">
+                    <label class="in_label" for="password">password</label>
+                    <input class="in_item_input" type="password" id="password" name="password"/>
+                </div>
+                <input class="sub_cli" type="submit" id="login" value="login"/>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el : '#login_id',
+            data : {
+                title : 'BLOG'
+            },
+            methods : {
+                details : function () {
+                    return 'ShenLong 的小博客';
+                }
+            }
+        });
+    </script>
+</div>
+<div id="footer"></div>
 </body>
 </html>

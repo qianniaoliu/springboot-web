@@ -1,5 +1,6 @@
 package com.athena.px.config;
 
+import com.alibaba.dubbo.config.spring.context.annotation.DubboComponentScan;
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubboConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -12,5 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @EnableDubboConfig
 @PropertySource("dubbo-config.properties")
+@DubboComponentScan
 public class DubboConfig {
+
 }

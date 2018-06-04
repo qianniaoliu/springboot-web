@@ -1,11 +1,19 @@
 package com.athena.px.controller;
 
-import com.athena.px.model.Gg;
-import com.athena.px.service.GgService;
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSONObject;
+import com.iu.sl.api.BlogService;
+import com.iu.sl.model.Blog;
+import com.iu.sl.pojo.SLResponse;
+import com.iu.sl.pojo.blog.RedisSLResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * @Description:
@@ -15,10 +23,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class IndexController {
 
-    final GgService ggService;
 
-    public IndexController(GgService ggService) {
-        this.ggService = ggService;
+    @Reference
+    private BlogService blogService;
+
+    private final KafkaTemplate kafkaTemplate;
+
+    @Autowired
+    public IndexController(KafkaTemplate kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
     }
 
 
@@ -27,9 +40,27 @@ public class IndexController {
         return "/index";
     }
 
-    @GetMapping("/get/{id}")
+
+    @GetMapping(value = "/blog/list")
     @ResponseBody
-    public Gg getGg(@PathVariable Integer id){
-        return ggService.findGg(id);
+    public List<Blog> finAll(){
+        JSONObject jo = new JSONObject();
+        jo.put("message","发送过来啦");
+        kafkaTemplate.send("mailTopic",jo.toJSONString());
+        SLResponse response = blogService.findAll();
+        RedisSLResponse<List<Blog>> redisSLResponse = null;
+        if(response instanceof RedisSLResponse){
+            redisSLResponse = (RedisSLResponse) response;
+        }
+        return redisSLResponse.getResult();
+    }
+
+    @GetMapping(value = "/send/{message}")
+    @ResponseBody
+    public String sendMessage(@PathVariable String message){
+        JSONObject jo = new JSONObject();
+        jo.put("message",message);
+        kafkaTemplate.send("mailTopic",jo);
+        return message;
     }
 }

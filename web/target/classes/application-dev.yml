@@ -1,3 +1,6 @@
+athena:
+  host: 47.96.81.112
+  chat-server: 192.168.2.101
 
 ## DB config
 spring:
@@ -12,16 +15,27 @@ spring:
 
 ## kafka config
   kafka:
-    bootstrap-servers: 192.168.2.129:9092
     producer:
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      bootstrap-servers: ${athena.host}:9092
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      retries: 1
-
-
+      retries: 3
+      batch-size: 100
+      client-id: spring-boot-demo
 
 server:
   port: 8080
+
+logging:
+  level:
+    org.springframework:
+      data: DEBUG
+      security: DEBUG
+
+jwt:
+  header: ACCESS_TOKEN
+  expire: 1800
+
 
 
 

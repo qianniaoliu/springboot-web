@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/index.css"/>
 </head>
 <body>
-
+<input id="host" type="hidden" th:value="${host}"/>
 <div id="index_bg">
     <div class="logout_r">
         <form action="/logout" method="post" th:action="@{/logout}">
@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="/js/index/wechat.js"></script>
+    <script th:inline="javascript" src="/js/index/wechat.js"></script>
 </div>
 </body>
 </html>

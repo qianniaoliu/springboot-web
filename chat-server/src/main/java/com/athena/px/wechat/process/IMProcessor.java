@@ -16,9 +16,18 @@ import io.netty.util.concurrent.GlobalEventExecutor;
  */
 public class IMProcessor {
 
+    private static class LazyHolder{
+        private static final IMProcessor imProcessor = new IMProcessor();
+    }
+    private IMProcessor(){}
+
+    public static final IMProcessor getInstance(){
+        return LazyHolder.imProcessor;
+    }
+
     private final static ChannelGroup onlineUsers = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
-    private final MsgDecoder msgDecoder = new MsgDecoder();
+    private final static MsgDecoder msgDecoder = MsgDecoder.getInstance();
 
     public void process(Channel client,String text){
         Message message = msgDecoder.decode(text);

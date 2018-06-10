@@ -17,6 +17,14 @@ import java.util.List;
  */
 public class MsgDecoder extends ByteToMessageDecoder {
 
+    private static class LazyHolder{
+        private static final MsgDecoder msgDecoder = new MsgDecoder();
+    }
+
+    public static final MsgDecoder getInstance(){
+        return LazyHolder.msgDecoder;
+    }
+
 
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf in, List<Object> list) throws Exception {

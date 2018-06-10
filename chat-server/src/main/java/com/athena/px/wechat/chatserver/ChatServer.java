@@ -16,8 +16,6 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 /**
  * @Description:
@@ -28,17 +26,17 @@ public class ChatServer{
 
     private final static Logger logger = LoggerFactory.getLogger(ChatServer.class);
 
-    public void start() {
+    public void start(String hostAddress) {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workGroup = new NioEventLoopGroup();
 
         ServerBootstrap server = new ServerBootstrap();
         try {
             //获取服务器IP
-            InetAddress address = InetAddress.getLocalHost();
-            String hostAddress = address.getHostAddress();
+            /*InetAddress address = InetAddress.getLocalHost();
+            String hostAddress = address.getHostAddress();*/
 
-
+            logger.info("WeChat 服务器开始启动!");
             server.group(bossGroup, workGroup)
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 1024)
@@ -62,14 +60,12 @@ public class ChatServer{
                             pipeline.addLast(new WebChatHandler());
                         }
                     });
-            ChannelFuture f = server.bind("192.168.2.103",80).sync();
-            logger.info("WeChat 服务器已启动!监听地址:192.168.2.103:80");
+            ChannelFuture f = server.bind(hostAddress,80).sync();
+            logger.info("WeChat 服务器已启动!监听地址:"+hostAddress+":80");
             f.channel().closeFuture().sync();
         }catch (InterruptedException e){
             e.printStackTrace();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } finally {
+        }  finally {
             workGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
         }

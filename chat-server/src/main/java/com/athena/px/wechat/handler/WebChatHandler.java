@@ -16,7 +16,7 @@ public class WebChatHandler extends SimpleChannelInboundHandler<TextWebSocketFra
 
     private final static Logger logger = LoggerFactory.getLogger(WebChatHandler.class);
 
-    private final IMProcessor imProcessor = new IMProcessor();
+    private final static IMProcessor imProcessor = IMProcessor.getInstance();
 
 
     @Override

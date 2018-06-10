@@ -7,8 +7,10 @@ import com.iu.sl.model.Blog;
 import com.iu.sl.pojo.SLResponse;
 import com.iu.sl.pojo.blog.RedisSLResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +25,8 @@ import java.util.List;
 @Controller
 public class IndexController {
 
+    @Value("${athena.chat-server}")
+    public String hostAddress;
 
     @Reference
     private BlogService blogService;
@@ -36,7 +40,8 @@ public class IndexController {
 
 
     @GetMapping("/index")
-    public String index(){
+    public String index(Model model){
+        model.addAttribute("host",hostAddress);
         return "/index";
     }
 
@@ -44,9 +49,6 @@ public class IndexController {
     @GetMapping(value = "/blog/list")
     @ResponseBody
     public List<Blog> finAll(){
-        JSONObject jo = new JSONObject();
-        jo.put("message","发送过来啦");
-        kafkaTemplate.send("mailTopic",jo.toJSONString());
         SLResponse response = blogService.findAll();
         RedisSLResponse<List<Blog>> redisSLResponse = null;
         if(response instanceof RedisSLResponse){
@@ -60,7 +62,7 @@ public class IndexController {
     public String sendMessage(@PathVariable String message){
         JSONObject jo = new JSONObject();
         jo.put("message",message);
-        kafkaTemplate.send("mailTopic",jo);
+        kafkaTemplate.send("mailTopic",jo.toJSONString());
         return message;
     }
 }

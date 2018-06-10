@@ -1,6 +1,4 @@
 $(document).ready(function(){
-   var hostport = document.location.host;
-   var server_addr = hostport.split(":")[0];
    window.CHAT = {
        socket:null,
        init : function () {
@@ -8,7 +6,7 @@ $(document).ready(function(){
                alert("浏览器不支持WebSocket");
                return;
            }
-           CHAT.socket = new WebSocket("ws://"+server_addr+":80/im");
+           CHAT.socket = new WebSocket("ws://"+$("#host").val()+":80/im");
            CHAT.socket.onopen = function (ev) {
                bindKey();//绑定键盘事件
                var in_height = $(".wechat_in").height();
@@ -42,6 +40,8 @@ $(document).ready(function(){
        $(".chat_in").hide();
        $("#nick_name").hide();
        $(".wechat_container").show();
+       initContentWidth();
+
    });
    $(".chat_out").click(function(){
        var nick_name = $("#nick_name").val();
@@ -152,5 +152,9 @@ function setIScroll(){
     $(".item_content").each(function(){
         height += $(this).height();
     });
-    $(".wechat_content_scroll").animate({scrollTop: height}, 1000);
+    $(".wechat_content_scroll").animate({scrollTop: height}, 500);
+}
+function initContentWidth(){
+    var width = $(".wechat_content_scroll").width() - 6;
+    $(".wechat_content").css("width",width);
 }

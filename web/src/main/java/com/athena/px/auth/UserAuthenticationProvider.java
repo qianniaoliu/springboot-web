@@ -27,12 +27,11 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
         SysUser user = (SysUser) authUserDetailsService.loadUserByUsername(username);
-        if("sl".equals(username)){
-            throw new UsernameNotFoundException("用户名不存在");
+        if(user.getPassword() == null || !user.getPassword().equals(password)){
+            throw new UsernameNotFoundException("用户名或密码错误!");
         }
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
         return new UsernamePasswordAuthenticationToken(username,password,authorities);

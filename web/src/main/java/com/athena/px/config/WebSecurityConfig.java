@@ -57,10 +57,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         //设置用户验证跳转路径
-        http.csrf().disable()
+        http/*.csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeRequests()
+                .and()*/.authorizeRequests()
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage("/login")

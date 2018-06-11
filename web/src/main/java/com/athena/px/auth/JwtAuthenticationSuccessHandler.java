@@ -8,7 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.DefaultSavedRequest;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -22,9 +28,11 @@ import java.io.IOException;
  * @CreateDate: 2018/6/6 16:11
  */
 @Component
-public class JwtAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+public class JwtAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private final static Logger logger = LoggerFactory.getLogger(JwtAuthenticationSuccessHandler.class);
+
+    private RequestCache requestCache = new HttpSessionRequestCache();
 
     @Value("${jwt.header}")
     private String header;
@@ -51,20 +59,28 @@ public class JwtAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
         response.setHeader(header,token);
         Cookie cookie = new Cookie(header,token);
         response.addCookie(cookie);
-        super.onAuthenticationSuccess(request,response,authentication);
+        this.handler(request,response,authentication);
     }
 
-    public void handler(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        String targetUrl = this.getDefaultTargetUrl();
-        Cookie[] cookies = request.getCookies();
-        if(cookies != null){
-            for(Cookie cookie : cookies){
-                if(cookie.getName().equals("forWordUrl")){
-                    targetUrl = cookie.getValue();
-                    break;
-                }
+    public void handler(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        SavedRequest savedRequest = this.requestCache.getRequest(request, response);
+        DefaultSavedRequest defaultSavedRequest = null;
+        if(savedRequest instanceof DefaultSavedRequest){
+            defaultSavedRequest = (DefaultSavedRequest) savedRequest;
+        }
+        if (savedRequest == null || (defaultSavedRequest != null && "/".equals(defaultSavedRequest.getRequestURI()))) {
+            super.onAuthenticationSuccess(request, response, authentication);
+        } else {
+            String targetUrlParameter = this.getTargetUrlParameter();
+            if (!this.isAlwaysUseDefaultTargetUrl() && (targetUrlParameter == null || !StringUtils.hasText(request.getParameter(targetUrlParameter)))) {
+                this.clearAuthenticationAttributes(request);
+                String targetUrl = savedRequest.getRedirectUrl();
+                this.logger.debug("Redirecting to DefaultSavedRequest Url: " + targetUrl);
+                this.getRedirectStrategy().sendRedirect(request, response, targetUrl);
+            } else {
+                this.requestCache.removeRequest(request, response);
+                super.onAuthenticationSuccess(request, response, authentication);
             }
         }
-        this.getRedirectStrategy().sendRedirect(request,response,targetUrl);
     }
 }

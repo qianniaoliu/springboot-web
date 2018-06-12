@@ -25,7 +25,7 @@ import java.util.List;
 @Controller
 public class IndexController {
 
-    @Value("${athena.chat-server}")
+    @Value("${athena.host}")
     public String hostAddress;
 
     @Reference

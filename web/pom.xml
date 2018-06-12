@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>web</artifactId>
-
+    <packaging>jar</packaging>
     <name>web</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
@@ -128,6 +128,14 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/webapp</directory>
+            </resource>
+        </resources>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
                 <plugin>

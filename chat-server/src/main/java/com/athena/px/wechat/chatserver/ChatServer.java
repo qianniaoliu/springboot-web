@@ -60,8 +60,8 @@ public class ChatServer{
                             pipeline.addLast(new WebChatHandler());
                         }
                     });
-            ChannelFuture f = server.bind(hostAddress,80).sync();
-            logger.info("WeChat 服务器已启动!监听地址:"+hostAddress+":80");
+            ChannelFuture f = server.bind(hostAddress,8099).sync();
+            logger.info("WeChat 服务器已启动!监听地址:"+hostAddress+":8099");
             f.channel().closeFuture().sync();
         }catch (InterruptedException e){
             e.printStackTrace();

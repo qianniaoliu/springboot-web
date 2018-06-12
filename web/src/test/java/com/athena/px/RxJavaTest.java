@@ -6,6 +6,7 @@ import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -17,6 +18,7 @@ public class RxJavaTest {
 
 
     @Test
+    @Ignore
     public void rxTest(){
         Flowable.just("Hello world")
                 .subscribe(System.out::println);

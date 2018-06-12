@@ -1,11 +1,13 @@
 athena:
   host: 47.96.81.112
-  chat-server: 192.168.2.101
+  chat-server: 172.16.23.147
 
 ## DB config
 spring:
+  resources:
+    static-locations: classpath:/resources/,classpath:/webapp/
   thymeleaf:
-    prefix: classpath:/thymeleaf/
+    prefix: classpath:/thymeleaf
     suffix: .html
 
 ## redis config

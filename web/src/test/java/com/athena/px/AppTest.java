@@ -25,6 +25,7 @@ public class AppTest
     }
 
     @Test
+    @Ignore
     public void dubbo(){
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         context.register(DubboConfig.class);

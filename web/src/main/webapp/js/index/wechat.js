@@ -6,7 +6,7 @@ $(document).ready(function(){
                alert("浏览器不支持WebSocket");
                return;
            }
-           CHAT.socket = new WebSocket("ws://"+$("#host").val()+":80/im");
+           CHAT.socket = new WebSocket("ws://"+$("#host").val()+":8099/im");
            CHAT.socket.onopen = function (ev) {
                bindKey();//绑定键盘事件
                var in_height = $(".wechat_in").height();

@@ -1,6 +1,7 @@
 package com.athena.px.springbootweb.repository;
 
 import com.athena.px.springbootweb.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -14,11 +15,12 @@ import javax.sql.DataSource;
 @Repository
 public class UserRepository {
 
-    private final DataSource dataSource;
+   /* private final DataSource dataSource;
 
+    @Autowired
     public UserRepository(DataSource dataSource) {
         this.dataSource = dataSource;
-    }
+    }*/
 
     public boolean saveUser(){
         return true;

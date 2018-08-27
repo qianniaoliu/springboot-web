@@ -1,4 +1,4 @@
-package com.athena.px.springbootweb.exception;//package com.athena.px.springbootweb.exception;
+//package com.athena.px.springbootweb.exception;//package com.athena.px.springbootweb.exception;
 //
 //
 //import org.springframework.web.bind.annotation.ExceptionHandler;

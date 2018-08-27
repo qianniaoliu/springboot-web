@@ -1,4 +1,4 @@
-package com.athena.px.springbootweb.interceptor;//package com.athena.px.springbootweb.interceptor;
+//package com.athena.px.springbootweb.interceptor;//package com.athena.px.springbootweb.interceptor;
 //
 //import org.springframework.web.servlet.HandlerInterceptor;
 //
@@ -14,7 +14,7 @@ package com.athena.px.springbootweb.interceptor;//package com.athena.px.springbo
 //{
 //    @Override
 //    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//
+//        System.out.println("进入拦截器!");
 //        return true;
 //    }
 //}
